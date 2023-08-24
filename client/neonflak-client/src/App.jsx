@@ -1,13 +1,11 @@
 import './App.css'
+import HomePageView from './Views/HomePageView'
 function App() {
  
   return (
     <>
       <div className="app">
-        <h1>Hello React!</h1>
-        <button className="button">
-          Action
-        </button>
+        <HomePageView/>
       </div>
     </>
   )
