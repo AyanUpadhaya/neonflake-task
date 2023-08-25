@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import { useState,useEffect } from 'react';
 import '../CustomCSS/CustomCSS.css'
 import '../index.css'
@@ -65,9 +67,6 @@ const HomePageView = () => {
         
         const imgUrl = await fetchImageData()
         const vidUrl = await fetchVideoData()
-        if(imgUrl.statusOk && vidUrl.statusOk){
-            console.log(blog)
-        }
         e.target.reset();
     }
     const handleImageFile = (e) => {
@@ -76,11 +75,24 @@ const HomePageView = () => {
     const handleVideoFile = (e) => {
         setBlog({...blog,videofile:e.target.files[0]});
     }
+    const createNewPost = async()=>{
+        const {imagefile, videofile, ...updateBlog} = blog;
+        const res = await fetch('http://localhost:5000/api/post',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(updateBlog)
+        })
+        const res_data = await res.json()
+        console.log(res_data)
+    }
     useEffect(() => {
         if (blog.image_url && blog.video_url) {
-           console.log(blog)
+            createNewPost()
         }
     }, [blog.image_url, blog.video_url]);
+    
     
   
 
