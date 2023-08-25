@@ -95,6 +95,10 @@ input[type='file']{
   font-weight: 500;
   padding-bottom: 1rem;
 }
+/* single post page */
+.post-info h2,h3,p{
+  margin: 1rem 0;
+}
 
 @media (max-width: 576px) {
     .main-block{

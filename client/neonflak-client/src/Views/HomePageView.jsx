@@ -8,10 +8,7 @@ import Loader from '../utils/Loader';
 
 /*Todo
  * Form validation
- * Create other pages that shows video listing and video
  * Add sweet alert
- * Create API for getting all posts
- * Create API for getting  single post
  * */
 
 
