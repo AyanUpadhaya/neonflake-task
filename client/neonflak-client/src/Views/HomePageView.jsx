@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react';
 import '../CustomCSS/CustomCSS.css'
 import '../index.css'
 import Loader from '../utils/Loader';
-
+import Swal from 'sweetalert2';
 
 /*Todo
  * Add sweet alert
@@ -21,8 +21,6 @@ import Loader from '../utils/Loader';
  * it will exclude imagefile and videofile properties
  * 
  */
-
-
 
 
 const HomePageView = () => {
