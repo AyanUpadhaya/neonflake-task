@@ -156,9 +156,11 @@ const HomePageView = () => {
                 <h1>File Upload</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="info">
-                        <input type="text" name="title" placeholder="Title" onChange={(e)=>setBlog({...blog, name: e.target.value})} required/>
+                        <input type="text" name="title" placeholder="Title" onChange={(e)=>setBlog({...blog, name: e.target.value})}
+                        maxLength={50} 
+                        required/>
                         <br />
-                        <textarea name='Description' placeholder='Content' onChange={(e)=>setBlog({...blog, content: e.target.value})}>
+                        <textarea name='Description' maxLength={200}  placeholder='Content' onChange={(e)=>setBlog({...blog, content: e.target.value})}>
                         </textarea>
                     </div>
                     <div className="file-section">
