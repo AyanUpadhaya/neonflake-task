@@ -1,11 +1,11 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
-import HomePageView from './Views/HomePageView'
 function App() {
  
   return (
     <>
       <div className="app">
-        <HomePageView/>
+        <Outlet/>
       </div>
     </>
   )

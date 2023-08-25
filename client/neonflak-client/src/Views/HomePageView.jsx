@@ -3,10 +3,18 @@
 import { useState,useEffect } from 'react';
 import '../CustomCSS/CustomCSS.css'
 import '../index.css'
+import Loader from '../utils/Loader';
 
-const Loader = ()=>{
-    return <h4 className='text-white'>Uploading..</h4>
-}
+
+/*Todo
+ * Form validation
+ * Create other pages that shows video listing and video
+ * Add sweet alert
+ * Create API for getting all posts
+ * Create API for getting  single post
+ * */
+
+
 
 const HomePageView = () => {
     const [isImageLoading,setImageLoading] = useState(false)
@@ -85,7 +93,9 @@ const HomePageView = () => {
             body:JSON.stringify(updateBlog)
         })
         const res_data = await res.json()
-        console.log(res_data)
+        if(res_data._id){
+            alert('Post created successfully')
+        }
     }
     useEffect(() => {
         if (blog.image_url && blog.video_url) {
@@ -111,14 +121,14 @@ const HomePageView = () => {
                         <input type="file" name="videofile" id="videofile" onChange={(e)=> handleVideoFile(e)}/>
                         <label htmlFor="file">Add Video [MPG, AVI, MP4 only]</label>
                     </div>
-                    {isVideoLoading?<Loader/>:''}
+                    {isVideoLoading?<Loader msg={'Uploading...'}/>:''}
 
                     <div className="file-section">
                         <input type="file" name="imagefile" id="imagefile" onChange={(e)=>handleImageFile(e)}/>
                         <label htmlFor="file">Add Thumbnail [JPG and PNG only] </label>
                     </div>
                     <div>
-                        {isImageLoading?<Loader/>:''}
+                        {isImageLoading?<Loader msg={'Uploading...'}/>:''}
                     </div>
                     
                     <button type='submit' className="btn btn-primary">Submit</button>

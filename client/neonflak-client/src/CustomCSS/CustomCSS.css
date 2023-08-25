@@ -58,6 +58,43 @@ input[type='file']{
   cursor: pointer;
   text-transform: none;
 }
+/* blog posts */
+.blog-posts{
+  padding-top: 1.5rem;
+  display: flex;
+  flex-flow: wrap;
+}
+/* blog post cards */
+.blog-post-card{
+  width:300px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  border:1px solid #fff;
+}
+.card-header{
+  width: 100%;
+}
+.card-header img{
+  max-width: 100%;
+  object-fit: cover;
+}
+.card-body{
+  width: 100%;
+  padding:0.5rem;
+}
+.card-title{
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-bottom: 1rem;
+}
+.card-text{
+  font-size:.8rem ;
+  font-weight: 500;
+  padding-bottom: 1rem;
+}
 
 @media (max-width: 576px) {
     .main-block{

@@ -9,8 +9,16 @@ const createPost = async (req, res) => {
         return res.status(500).json(err)
     }
 }
-const getAllPost = async(req,res)=>{} 
+const getAllPosts = async(req,res)=>{
+    try{
+        const posts = await Post.find();
+        return res.status(200).json(posts)
+    }catch(err){
+        return res.status(500).json(err)
+    }
+} 
 
 module.exports = {
-    createPost
+    createPost,
+    getAllPosts
 }
