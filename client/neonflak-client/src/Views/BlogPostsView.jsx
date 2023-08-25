@@ -16,8 +16,8 @@ const BlogPostsView = () => {
     }else{
         return (
             <div>
-                <div className="main-block">
-                    <h1>Blog Posts</h1>
+                <div className="container">
+                    <h1 className='text-center'>Blog Posts</h1>
                     <div className="blog-posts">
                         {
                             allPosts.map((post) => <BlogPostCard key={post._id} post={post}/>)

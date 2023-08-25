@@ -7,7 +7,6 @@ import Loader from '../utils/Loader';
 
 
 /*Todo
- * Form validation
  * Add sweet alert
  * */
 /**
@@ -29,6 +28,7 @@ import Loader from '../utils/Loader';
 const HomePageView = () => {
     const [isImageLoading,setImageLoading] = useState(false)
     const [isVideoLoading,setVideoLoading] = useState(false)
+    const [disabled,setDisabled] = useState(false);
     const [blog,setBlog] = useState(
         {
             name:'',
@@ -88,10 +88,28 @@ const HomePageView = () => {
         e.target.reset();
     }
     const handleImageFile = (e) => {
-        setBlog({...blog,imagefile:e.target.files[0]});
+        const fileArray = e.target.files[0].name.split('.')
+        if(fileArray[fileArray.length-1]!== 'png' && fileArray[fileArray.length-1]!== 'jpg' && fileArray[fileArray.length-1]!== 'PNG' && fileArray[fileArray.length-1]!== 'JPG'){
+            alert('Please upload a valid image file')
+            e.target.value = '';
+            setDisabled(true)
+        }else{
+            setBlog({...blog,imagefile:e.target.files[0]});
+            e.target.value = '';
+            setDisabled(false)
+        }
+        
     }
     const handleVideoFile = (e) => {
-        setBlog({...blog,videofile:e.target.files[0]});
+        const fileArray = e.target.files[0].name.split('.')
+        if(fileArray[fileArray.length-1]!== 'mpg' && fileArray[fileArray.length-1]!== 'MPG' && fileArray[fileArray.length-1]!== 'avi' && fileArray[fileArray.length-1]!== 'AVI' && fileArray[fileArray.length-1]!== 'mp4' && fileArray[fileArray.length-1]!== 'MP4'){
+            alert('Please upload a valid video file')
+            setDisabled(true)
+        }else{
+            setBlog({...blog,videofile:e.target.files[0]});
+            setDisabled(false)
+        }
+       
     }
     const createNewPost = async()=>{
         const {imagefile, videofile, ...updateBlog} = blog;
@@ -122,26 +140,26 @@ const HomePageView = () => {
                 <h1>File Upload</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="info">
-                        <input type="text" name="title" placeholder="Title" onChange={(e)=>setBlog({...blog, name: e.target.value})}/>
+                        <input type="text" name="title" placeholder="Title" onChange={(e)=>setBlog({...blog, name: e.target.value})} required/>
                         <br />
                         <textarea name='Description' placeholder='Content' onChange={(e)=>setBlog({...blog, content: e.target.value})}>
                         </textarea>
                     </div>
                     <div className="file-section">
-                        <input type="file" name="videofile" id="videofile" onChange={(e)=> handleVideoFile(e)}/>
+                        <input type="file" name="videofile" id="videofile" onChange={(e)=> handleVideoFile(e)} required/>
                         <label htmlFor="file">Add Video [MPG, AVI, MP4 only]</label>
                     </div>
                     {isVideoLoading?<Loader msg={'Uploading...'}/>:''}
 
                     <div className="file-section">
-                        <input type="file" name="imagefile" id="imagefile" onChange={(e)=>handleImageFile(e)}/>
+                        <input type="file" name="imagefile" id="imagefile" onChange={(e)=>handleImageFile(e)} required/>
                         <label htmlFor="file">Add Thumbnail [JPG and PNG only] </label>
                     </div>
                     <div>
                         {isImageLoading?<Loader msg={'Uploading...'}/>:''}
                     </div>
                     
-                    <button type='submit' className="btn btn-primary">Submit</button>
+                    <button type="submit" disabled={disabled} className="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>

@@ -9,9 +9,6 @@ const BlogPostCard = ({post})=>{
             </div>
             <div className="card-body">
                 <h5 className="card-title">{post.name}</h5>
-                <div>
-                    <Link to={`/posts/${post._id}`} className="btn btn-primary">View</Link> 
-                </div>
             </div>
         </div>
     )
