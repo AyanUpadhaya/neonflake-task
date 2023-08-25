@@ -10,6 +10,19 @@ import Loader from '../utils/Loader';
  * Form validation
  * Add sweet alert
  * */
+/**
+ * Steps
+ * Create state to manage blog data
+ * Update state from form data
+ * fetch image url from api by uploading to cloudinary
+ * fetch video url from api by uploading to cloudinary
+ * update image url and video url properties in state
+ * when both image and video url are set then trigger useEffect
+ * useEffect will execute createPost function that will store all data but
+ * it will exclude imagefile and videofile properties
+ * 
+ */
+
 
 
 

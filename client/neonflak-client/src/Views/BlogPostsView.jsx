@@ -1,21 +1,35 @@
-import { useLoaderData } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
 import '../CustomCSS/CustomCSS.css'
+import { useLoaderData } from 'react-router-dom';
 import BlogPostCard from '../Components/BlogPostCard';
+import PageLoader from '../Components/PageLoader/PageLoader';
+import { useEffect, useState } from 'react';
 const BlogPostsView = () => {
     const loadedData = useLoaderData();
-    console.log(loadedData)
-    return (
-        <div>
-            <div className="main-block">
-                <h1>Blog Posts</h1>
-                <div className="blog-posts">
-                    {
-                        loadedData.map((post) => <BlogPostCard key={post._id} post={post}/>)
-                    }
-                </div>
-            </div>         
-        </div>
-    );
+    const [allPosts,setAllPosts] = useState(loadedData)
+    const [loading,setLoading] = useState(true)
+    useEffect(()=>{
+        setLoading(false)
+    },[allPosts])
+    if(loading){
+        return <PageLoader/>
+    }else{
+        return (
+            <div>
+                <div className="main-block">
+                    <h1>Blog Posts</h1>
+                    <div className="blog-posts">
+                        {
+                            allPosts.map((post) => <BlogPostCard key={post._id} post={post}/>)
+                        }
+                    </div>
+                </div>         
+            </div>
+        );
+
+    }
+    
+    
 };
 
 export default BlogPostsView;
