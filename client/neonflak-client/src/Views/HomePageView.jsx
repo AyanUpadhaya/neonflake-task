@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useState,useEffect } from 'react';
-import '../CustomCSS/CustomCSS.css'
-import '../index.css'
+import '../CustomCSS/CustomCSS.css';
+import '../index.css';
 import Loader from '../utils/Loader';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { ChangeTitle } from '../utils/ChangeTitle';
 
 
 /**
@@ -22,8 +24,9 @@ import Swal from 'sweetalert2';
 
 
 const HomePageView = () => {
-    const [isImageLoading,setImageLoading] = useState(false)
-    const [isVideoLoading,setVideoLoading] = useState(false)
+    const navigate = useNavigate();
+    const [isImageLoading,setImageLoading] = useState(false);
+    const [isVideoLoading,setVideoLoading] = useState(false);
     const [disabled,setDisabled] = useState(false);
     const [blog,setBlog] = useState(
         {
@@ -35,6 +38,9 @@ const HomePageView = () => {
             video_url:'',
         }
     );
+    useEffect(()=>{
+        ChangeTitle('Home Page')
+    },[])
     
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -44,18 +50,18 @@ const HomePageView = () => {
             const data = new FormData();
             data.append('file',blog.imagefile);
             data.append('upload_preset','rwtn2dqq');
-            data.append('cloud_name','dmcpfuntl')
+            data.append('cloud_name','dmcpfuntl');
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dmcpfuntl/image/upload',{
             method:'POST',
             body:data
             })
-            const res_data = await res.json()
+            const res_data = await res.json();
             
             if(res_data.version_id){
-                setImageLoading(false)
+                setImageLoading(false);
                 setBlog(prevBlog => ({ ...prevBlog, image_url: res_data.url }))
-                return {statusOk:true}
+                return {statusOk:true};
             }
         }
         const fetchVideoData = async()=>{
@@ -63,28 +69,28 @@ const HomePageView = () => {
             const data = new FormData();
             data.append('file',blog.videofile);
             data.append('upload_preset','onbrdpzf');
-            data.append('cloud_name','dmcpfuntl')
+            data.append('cloud_name','dmcpfuntl');
 
             const res = await fetch('https://api.cloudinary.com/v1_1/dmcpfuntl/video/upload',{
             method:'POST',
             body:data
             })
-            const res_data = await res.json()
+            const res_data = await res.json();
             if(res_data.version_id){
                 setVideoLoading(false)
-                setBlog(prevBlog => ({ ...prevBlog, video_url: res_data.url }))
-                return {statusOk:true}
+                setBlog(prevBlog => ({ ...prevBlog, video_url: res_data.url }));
+                return {statusOk:true};
             }
             
         }
 
         
-        const imgUrl = await fetchImageData()
-        const vidUrl = await fetchVideoData()
+        const imgUrl = await fetchImageData();
+        const vidUrl = await fetchVideoData();
         e.target.reset();
     }
     const handleImageFile = (e) => {
-        const fileArray = e.target.files[0].name.split('.')
+        const fileArray = e.target.files[0].name.split('.');
         if(fileArray[fileArray.length-1]!== 'png' && fileArray[fileArray.length-1]!== 'jpg' && fileArray[fileArray.length-1]!== 'PNG' && fileArray[fileArray.length-1]!== 'JPG'){
             Swal.fire({
                 icon: 'error',
@@ -94,35 +100,35 @@ const HomePageView = () => {
             e.target.value = null;
         }else{
             setBlog({...blog,imagefile:e.target.files[0]});
-            setDisabled(false)
+            setDisabled(false);
         }
         
     }
     const handleVideoFile = (e) => {
-        const fileArray = e.target.files[0].name.split('.')
+        const fileArray = e.target.files[0].name.split('.');
         if(fileArray[fileArray.length-1]!== 'mpg' && fileArray[fileArray.length-1]!== 'MPG' && fileArray[fileArray.length-1]!== 'avi' && fileArray[fileArray.length-1]!== 'AVI' && fileArray[fileArray.length-1]!== 'mp4' && fileArray[fileArray.length-1]!== 'MP4'){
             Swal.fire({
                 icon: 'error',
                 text: 'Please upload a valid video file!',
-              })
+              });
             e.target.value = null;
             setDisabled(true)
         }else{
             setBlog({...blog,videofile:e.target.files[0]});
-            setDisabled(false)
+            setDisabled(false);
         }
        
     }
     const createNewPost = async()=>{
         const {imagefile, videofile, ...updateBlog} = blog;
-        const res = await fetch('http://localhost:5000/api/post',{
+        const res = await fetch('https://neonflake-server-pt5j.onrender.com/api/post',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
             },
             body:JSON.stringify(updateBlog)
         })
-        const res_data = await res.json()
+        const res_data = await res.json();
         if(res_data._id){
             Swal.fire({
                 position: 'top-center',
@@ -130,7 +136,8 @@ const HomePageView = () => {
                 title: 'Your work has been saved',
                 showConfirmButton: false,
                 timer: 1500
-              })
+              });
+            navigate('/posts');
         }
     }
     //create post when we get both image url and video url from cloudinary

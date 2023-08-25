@@ -1,16 +1,17 @@
 import { Link, useLoaderData } from "react-router-dom";
 import "../CustomCSS/CustomCSS.css";
 import PageLoader from "../Components/PageLoader/PageLoader";
+import { ChangeTitle } from '../utils/ChangeTitle';
 const SinglePostView = () => {
   const loaderData = useLoaderData();
+  ChangeTitle('Single Post');
   if(!loaderData){
     return <PageLoader/>
   }else{
     return (
         <div>
           <div className="main-block">
-            <h1>Single Post</h1>
-            <video width="600" height="500" controls>
+            <video width="600" height="500" controls autoPlay>
               <source src={loaderData.video_url} type="video/mp4" />
             </video>
             <div className="post-info">

@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from '../App'
+import App from '../App';
 import HomePageView from "../Views/HomePageView";
 import BlogPostsView from "../Views/BlogPostsView";
 import SinglePostView from "../Views/SinglePostView";
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
                 path:'/posts',
                 element:<BlogPostsView/>,
                 loader: async () => {
-                    const res = await fetch('http://localhost:5000/api/post')
+                    const res = await fetch('https://neonflake-server-pt5j.onrender.com/api/post')
                     const data = await res.json()
                     return data
                   }
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
                 path:'/posts/:id',
                 element:<SinglePostView/>,
                 loader: async ({params}) => {
-                    const res = await fetch(`http://localhost:5000/api/post/${params.id}`)
+                    const res = await fetch(`https://neonflake-server-pt5j.onrender.com/api/post/${params.id}`)
                     const data = await res.json()
                     return data
                   }
@@ -34,4 +34,4 @@ const router = createBrowserRouter([
     }
 ])
 
-export default router
+export default router;

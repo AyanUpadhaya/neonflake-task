@@ -4,15 +4,17 @@ import { useLoaderData } from 'react-router-dom';
 import BlogPostCard from '../Components/BlogPostCard';
 import PageLoader from '../Components/PageLoader/PageLoader';
 import { useEffect, useState } from 'react';
+import { ChangeTitle } from '../utils/ChangeTitle';
 const BlogPostsView = () => {
     const loadedData = useLoaderData();
-    const [allPosts,setAllPosts] = useState(loadedData)
-    const [loading,setLoading] = useState(true)
+    const [allPosts,setAllPosts] = useState(loadedData);
+    const [loading,setLoading] = useState(true);
     useEffect(()=>{
-        setLoading(false)
+        setLoading(false);
+        ChangeTitle('Blog Posts');
     },[allPosts])
     if(loading){
-        return <PageLoader/>
+        return <PageLoader/>;
     }else{
         return (
             <div>
