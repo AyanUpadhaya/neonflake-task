@@ -6,9 +6,7 @@ import '../index.css'
 import Loader from '../utils/Loader';
 import Swal from 'sweetalert2';
 
-/*Todo
- * Add sweet alert
- * */
+
 /**
  * Steps
  * Create state to manage blog data
@@ -88,12 +86,14 @@ const HomePageView = () => {
     const handleImageFile = (e) => {
         const fileArray = e.target.files[0].name.split('.')
         if(fileArray[fileArray.length-1]!== 'png' && fileArray[fileArray.length-1]!== 'jpg' && fileArray[fileArray.length-1]!== 'PNG' && fileArray[fileArray.length-1]!== 'JPG'){
-            alert('Please upload a valid image file')
-            e.target.value = '';
+            Swal.fire({
+                icon: 'error',
+                text: 'Please upload a valid image file!',
+              })
             setDisabled(true)
+            e.target.value = null;
         }else{
             setBlog({...blog,imagefile:e.target.files[0]});
-            e.target.value = '';
             setDisabled(false)
         }
         
@@ -101,7 +101,11 @@ const HomePageView = () => {
     const handleVideoFile = (e) => {
         const fileArray = e.target.files[0].name.split('.')
         if(fileArray[fileArray.length-1]!== 'mpg' && fileArray[fileArray.length-1]!== 'MPG' && fileArray[fileArray.length-1]!== 'avi' && fileArray[fileArray.length-1]!== 'AVI' && fileArray[fileArray.length-1]!== 'mp4' && fileArray[fileArray.length-1]!== 'MP4'){
-            alert('Please upload a valid video file')
+            Swal.fire({
+                icon: 'error',
+                text: 'Please upload a valid video file!',
+              })
+            e.target.value = null;
             setDisabled(true)
         }else{
             setBlog({...blog,videofile:e.target.files[0]});
@@ -120,9 +124,16 @@ const HomePageView = () => {
         })
         const res_data = await res.json()
         if(res_data._id){
-            alert('Post created successfully')
+            Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+              })
         }
     }
+    //create post when we get both image url and video url from cloudinary
     useEffect(() => {
         if (blog.image_url && blog.video_url) {
             createNewPost()
