@@ -121,7 +121,7 @@ const HomePageView = () => {
     }
     const createNewPost = async()=>{
         const {imagefile, videofile, ...updateBlog} = blog;
-        const res = await fetch('https://neonflake-server-pt5j.onrender.com/api/post',{
+        const res = await fetch('https://neon-flake-server.vercel.app/api/post',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

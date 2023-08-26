@@ -16,7 +16,7 @@ const router = createBrowserRouter([
                 path:'/posts',
                 element:<BlogPostsView/>,
                 loader: async () => {
-                    const res = await fetch('https://neonflake-server-pt5j.onrender.com/api/post')
+                    const res = await fetch('https://neon-flake-server.vercel.app/api/post')
                     const data = await res.json()
                     return data
                   }
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
                 path:'/posts/:id',
                 element:<SinglePostView/>,
                 loader: async ({params}) => {
-                    const res = await fetch(`https://neonflake-server-pt5j.onrender.com/api/post/${params.id}`)
+                    const res = await fetch(`https://neon-flake-server.vercel.app/api/post/${params.id}`)
                     const data = await res.json()
                     return data
                   }
